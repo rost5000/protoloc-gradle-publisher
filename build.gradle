@@ -1,0 +1,60 @@
+plugins {
+    id 'maven-publish'
+}
+
+group 'org.example'
+version '3.20.1'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    protoc_publication
+}
+
+def exeArtifact = artifacts.add('protoc_publication', file('src/main/bin/protoc-3.20.1-win-amd.exe')) {
+    type 'amd64'
+    name 'protoc'
+    classifier 'win-amd64'
+    extension 'exe'
+}
+def linuxAmdArtifact = artifacts.add('protoc_publication', file('src/main/bin/protoc-3.20.1-win-amd.exe')) {
+    type 'amd64'
+    name 'protoc'
+    classifier 'linux-amd64'
+    extension 'exe'
+}
+
+publishing {
+    publications {
+        protoc(MavenPublication) {
+            groupId = "$group"
+            artifactId = 'protolock'
+
+            artifact exeArtifact
+            artifact linuxAmdArtifact
+            pom {
+                name = 'protolock library'
+                description  = 'Protoc library extenssion'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'rost5000'
+                        name = 'Shaniiazov Rostislav'
+                        email = 'rost.26@mail.ru'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
