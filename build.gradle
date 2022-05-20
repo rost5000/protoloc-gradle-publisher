@@ -70,9 +70,5 @@ publishing {
 
     repositories {
         mavenLocal()
-        maven {
-            url 'https://nexus-ci.corp.dev.vtb/repository/ovp-maven-lib/'
-            credentials(PasswordCredentials)
-        }
     }
 }
